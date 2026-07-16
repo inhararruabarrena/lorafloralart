@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LORA Floral Art — Diseño Floral para Bodas y Eventos</title>
+<meta name="description" content="LORA Floral Art. Diseño floral para bodas y eventos en Euskadi y en cualquier rincón del mundo.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<style>
+  :root{
+    --terracota:#B5654A;
+    --terracota-dark:#96503A;
+    --crema:#FDF8F3;
+    --crema-2:#F6ECE3;
+    --rosa:#D4A5A5;
+    --marron:#3A2E29;
+    --gold:#C9A876;
+    --white:#FFFFFF;
+    --shadow: 0 20px 50px rgba(58,46,41,0.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Jost', sans-serif;
+    background:var(--crema);
+    color:var(--marron);
+    overflow-x:hidden;
+    font-weight:300;
+    line-height:1.6;
+  }
+  h1,h2,h3,h4{font-family:'Playfair Display', serif; font-weight:600; letter-spacing:.3px;}
+  a{text-decoration:none; color:inherit;}
+  img{max-width:100%; display:block;}
+  ul{list-style:none;}
+  ::-webkit-scrollbar{width:10px;}
+  ::-webkit-scrollbar-track{background:var(--crema-2);}
+  ::-webkit-scrollbar-thumb{background:var(--terracota); border-radius:10px;}
+  ::-webkit-scrollbar-thumb:hover{background:var(--terracota-dark);}
+  ::selection{background:var(--rosa); color:var(--marron);}
+
+  .container{max-width:1180px; margin:0 auto; padding:0 32px;}
+  .eyebrow{
+    font-family:'Jost',sans-serif; text-transform:uppercase; letter-spacing:4px;
+    font-size:.75rem; color:var(--terracota); font-weight:500; margin-bottom:14px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:''; width:28px; height:1px; background:var(--terracota);}
+  .section-title{font-size:clamp(1.9rem,4vw,2.8rem); margin-bottom:20px;}
+  .gold-underline{width:70px; height:3px; background:linear-gradient(90deg,var(--terracota),var(--gold)); border-radius:3px; margin-bottom:36px;}
+  section{padding:110px 0;}
+
+  /* NAV */
+  #nav{
+    position:fixed; top:0; left:0; right:0; z-index:1000;
+    padding:22px 0; transition:all .4s ease;
+  }
+  #nav .container{display:flex; align-items:center; justify-content:space-between;}
+  #nav.scrolled{
+    background:rgba(253,248,243,0.85); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    box-shadow:0 4px 24px rgba(58,46,41,0.06); padding:14px 0;
+  }
+  .logo{font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; letter-spacing:1px; color:var(--terracota-dark);}
+  .logo span{display:block; font-family:'Jost',sans-serif; font-size:.55rem; letter-spacing:5px; font-weight:500; color:var(--marron); text-transform:uppercase; margin-top:2px;}
+  #nav ul{display:flex; gap:36px;}
+  #nav ul a{font-size:.85rem; letter-spacing:1px; text-transform:uppercase; font-weight:500; position:relative; padding-bottom:4px;}
+  #nav ul a::after{content:''; position:absolute; bottom:0; left:0; width:0; height:1px; background:var(--terracota); transition:width .3s;}
+  #nav ul a:hover::after{width:100%;}
+  .nav-toggle{display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none;}
+  .nav-toggle span{width:24px; height:2px; background:var(--marron);}
+
+  /* HERO */
+  #hero{
+    min-height:100vh; display:flex; align-items:center; position:relative;
+    padding:150px 0 80px; overflow:hidden;
+  }
+  .blob{position:absolute; border-radius:50%; filter:blur(60px); opacity:.35; z-index:0;}
+  .blob-1{width:420px; height:420px; background:var(--rosa); top:-100px; right:-120px;}
+  .blob-2{width:340px; height:340px; background:var(--gold); bottom:-80px; left:-100px; opacity:.25;}
+
+  .hero-grid{
+    position:relative; z-index:1; display:grid; grid-template-columns:1.1fr .9fr; gap:70px; align-items:center;
+  }
+  .hero-title{font-size:clamp(2.4rem,5vw,3.6rem); line-height:1.15; margin-bottom:26px;}
+  .hero-title em{font-style:italic; color:var(--terracota);}
+  .hero-sub{font-size:1.1rem; max-width:480px; margin-bottom:38px; color:#5c4a42;}
+  .hero-ctas{display:flex; gap:18px; flex-wrap:wrap;}
+  .press-badge{
+    display:inline-flex; align-items:center; gap:10px; margin-top:26px; padding:10px 18px 10px 14px;
+    background:var(--white); border:1px solid rgba(181,101,74,.2); border-radius:40px; font-size:.82rem;
+    color:#5c4a42; box-shadow:0 8px 20px rgba(58,46,41,.08); transition:transform .3s, box-shadow .3s;
+  }
+  .press-badge:hover{transform:translateY(-3px); box-shadow:0 14px 28px rgba(58,46,41,.14);}
+  .press-badge svg{width:16px; height:16px; stroke:var(--gold); fill:var(--gold); flex-shrink:0;}
+  .press-badge strong{font-family:'Playfair Display',serif; font-weight:700; color:var(--terracota-dark);}
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding:15px 30px; border-radius:40px;
+    font-size:.85rem; letter-spacing:1px; text-transform:uppercase; font-weight:500; transition:all .3s ease;
+    cursor:pointer; border:1px solid transparent;
+  }
+  .btn-primary{background:var(--terracota); color:var(--white); box-shadow:0 12px 28px rgba(181,101,74,.35);}
+  .btn-primary:hover{background:var(--terracota-dark); transform:translateY(-3px); box-shadow:0 16px 32px rgba(181,101,74,.45);}
+  .btn-outline{border-color:var(--marron); color:var(--marron);}
+  .btn-outline:hover{background:var(--marron); color:var(--white); transform:translateY(-3px);}
+  .btn-small{padding:10px 20px; font-size:.7rem;}
+
+  /* IG CARD */
+  .ig-card{
+    background:var(--white); border-radius:28px; padding:34px; box-shadow:var(--shadow);
+    position:relative; z-index:1; border:1px solid rgba(181,101,74,.08);
+  }
+  .ig-top{display:flex; gap:18px; align-items:center; margin-bottom:18px;}
+  .ig-ring{
+    width:88px; height:88px; border-radius:50%; padding:4px; flex-shrink:0;
+    background:conic-gradient(from 0deg, var(--terracota), var(--gold), var(--rosa), var(--terracota));
+    animation:spin 6s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .ig-ring-inner{width:100%; height:100%; border-radius:50%; padding:3px; background:var(--white);}
+  .ig-ring img{width:100%; height:100%; border-radius:50%; object-fit:cover;}
+  .ig-name-row{display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
+  .ig-name-row h3{font-size:1.25rem;}
+  .verified{
+    width:18px; height:18px; border-radius:50%;
+    background:linear-gradient(135deg,#4dabf7,#1c7ed6); display:flex; align-items:center; justify-content:center;
+    box-shadow:0 2px 6px rgba(28,126,214,.4); flex-shrink:0;
+  }
+  .verified svg{width:11px; height:11px;}
+  .ig-handle{font-size:.9rem; color:var(--terracota); font-weight:500;}
+  .ig-meta{font-size:.8rem; color:#8a7a72; margin-top:2px;}
+
+  .ig-stats{display:flex; gap:0; border-top:1px solid #f0e6dd; border-bottom:1px solid #f0e6dd; padding:16px 0; margin:18px 0;}
+  .ig-stats div{flex:1; text-align:center; border-right:1px solid #f0e6dd;}
+  .ig-stats div:last-child{border-right:none;}
+  .ig-stats strong{display:block; font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--marron);}
+  .ig-stats span{font-size:.7rem; text-transform:uppercase; letter-spacing:.5px; color:#8a7a72;}
+
+  .ig-bio{font-size:.9rem; color:#5c4a42; margin-bottom:20px; white-space:pre-line;}
+  .ig-actions{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px;}
+  .ig-actions .btn{flex:1; justify-content:center; white-space:nowrap;}
+
+  .ig-mini-grid{display:grid; grid-template-columns:repeat(6,1fr); gap:6px;}
+  .ig-mini-grid img{width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px; transition:transform .3s;}
+  .ig-mini-grid img:hover{transform:scale(1.08);}
+
+  .community-line{
+    margin-top:60px; text-align:center; position:relative; z-index:1;
+  }
+  .community-line h2{font-size:clamp(1.6rem,3.2vw,2.4rem); max-width:820px; margin:0 auto 14px;}
+  .community-line p{color:#8a7a72; font-size:.95rem;}
+  .community-line p strong{color:var(--terracota); font-weight:500;}
+
+  /* REVEAL */
+  .reveal{opacity:0; transform:translateY(36px); transition:opacity .8s ease, transform .8s ease;}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+  .stagger > *{opacity:0; transform:translateY(30px); transition:opacity .6s ease, transform .6s ease;}
+  .stagger.visible > *{opacity:1; transform:translateY(0);}
+  .stagger.visible > *:nth-child(1){transition-delay:.05s;}
+  .stagger.visible > *:nth-child(2){transition-delay:.12s;}
+  .stagger.visible > *:nth-child(3){transition-delay:.19s;}
+  .stagger.visible > *:nth-child(4){transition-delay:.26s;}
+  .stagger.visible > *:nth-child(5){transition-delay:.33s;}
+  .stagger.visible > *:nth-child(6){transition-delay:.40s;}
+  .stagger.visible > *:nth-child(7){transition-delay:.47s;}
+  .stagger.visible > *:nth-child(8){transition-delay:.54s;}
+  .stagger.visible > *:nth-child(9){transition-delay:.61s;}
+  .stagger.visible > *:nth-child(10){transition-delay:.68s;}
+  .stagger.visible > *:nth-child(11){transition-delay:.75s;}
+
+  /* SOBRE MI */
+  #sobre{background:var(--crema-2);}
+  .sobre-grid{display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:start;}
+  .sobre-text p{color:#5c4a42; margin-bottom:22px; font-size:1.02rem;}
+  .badges{display:flex; flex-wrap:wrap; gap:12px;}
+  .badge{
+    padding:10px 20px; border-radius:30px; background:var(--white); border:1px solid rgba(181,101,74,.2);
+    font-size:.82rem; color:var(--terracota-dark); font-weight:500;
+  }
+  .sobre-photos{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .sobre-photos img{border-radius:18px; object-fit:cover; height:100%; box-shadow:0 14px 30px rgba(58,46,41,.12); transition:transform .5s;}
+  .sobre-photos img:hover{transform:translateY(-8px);}
+  .sobre-photos .tall{grid-row:span 2; aspect-ratio:3/4;}
+  .sobre-photos .short{aspect-ratio:1/1;}
+
+  /* SERVICIOS */
+  .servicios-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:32px;}
+  .servicio-card{
+    background:var(--white); border-radius:24px; padding:44px 38px; box-shadow:var(--shadow);
+    border:1px solid rgba(181,101,74,.08); transition:transform .4s ease, box-shadow .4s ease;
+  }
+  .servicio-card:hover{transform:translateY(-10px); box-shadow:0 30px 60px rgba(58,46,41,.16);}
+  .servicio-icon{
+    width:56px; height:56px; border-radius:16px; background:linear-gradient(135deg,var(--terracota),var(--gold));
+    display:flex; align-items:center; justify-content:center; margin-bottom:22px;
+  }
+  .servicio-icon svg{width:26px; height:26px; stroke:white;}
+  .servicio-card h3{font-size:1.4rem; margin-bottom:14px;}
+  .servicio-card p{color:#5c4a42; margin-bottom:20px; font-size:.95rem;}
+  .servicio-note{
+    text-align:center; margin-top:40px; color:#8a7a72; font-size:.9rem; font-style:italic;
+  }
+
+  /* GALERIA */
+  #galeria{background:var(--crema-2);}
+  .gallery-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+  .gallery-item{position:relative; overflow:hidden; border-radius:16px; aspect-ratio:4/5; cursor:pointer;}
+  .gallery-item img{width:100%; height:100%; object-fit:cover; transition:transform .6s ease;}
+  .gallery-item:hover img{transform:scale(1.12);}
+  .gallery-overlay{
+    position:absolute; inset:0; background:linear-gradient(to top, rgba(58,46,41,.88), transparent 60%);
+    display:flex; align-items:flex-end; padding:18px; opacity:0; transition:opacity .35s ease;
+  }
+  .gallery-item:hover .gallery-overlay{opacity:1;}
+  .gallery-overlay p{color:var(--white); font-size:.82rem; line-height:1.4;}
+  .gallery-overlay strong{display:block; font-family:'Playfair Display',serif; font-size:1rem; margin-bottom:2px;}
+
+  /* METRICAS */
+  #metricas{
+    background:linear-gradient(120deg,var(--terracota-dark),var(--terracota));
+    color:var(--white); padding:80px 0; position:relative; overflow:hidden;
+  }
+  .metricas-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:30px; text-align:center; position:relative; z-index:1;}
+  .metrica strong{display:flex; align-items:baseline; justify-content:center; gap:3px; font-family:'Playfair Display',serif; font-size:clamp(2.2rem,5vw,3.2rem); margin-bottom:8px; font-variant-numeric:lining-nums;}
+  .metrica strong .plus-sign{font-family:'Jost',sans-serif; font-weight:400; font-size:.55em;}
+  .metrica > span{font-size:.85rem; text-transform:uppercase; letter-spacing:2px; opacity:.85;}
+
+  /* CONTACTO */
+  .contacto-grid{display:grid; grid-template-columns:.9fr 1.1fr; gap:70px;}
+  .contacto-info p{color:#5c4a42; margin-bottom:28px; font-size:1.02rem;}
+  .contact-item{display:flex; align-items:center; gap:14px; margin-bottom:20px;}
+  .contact-item .ico{
+    width:44px; height:44px; border-radius:50%; background:var(--crema-2); display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .contact-item .ico svg{width:18px; height:18px; stroke:var(--terracota);}
+  .contact-item a, .contact-item span{font-size:.95rem;}
+  .social-row{display:flex; gap:14px; margin-top:28px;}
+  .social-row a{
+    width:46px; height:46px; border-radius:50%; background:var(--white); border:1px solid rgba(181,101,74,.2);
+    display:flex; align-items:center; justify-content:center; transition:all .3s;
+  }
+  .social-row a:hover{background:var(--terracota); border-color:var(--terracota); transform:translateY(-4px);}
+  .social-row a svg{width:19px; height:19px; stroke:var(--terracota); transition:stroke .3s;}
+  .social-row a:hover svg{stroke:var(--white);}
+
+  form{display:flex; flex-direction:column; gap:18px;}
+  .form-row{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  input, textarea{
+    width:100%; padding:16px 20px; border-radius:14px; border:1px solid #e8dcd2; background:var(--white);
+    font-family:'Jost',sans-serif; font-size:.95rem; color:var(--marron); transition:border-color .3s;
+  }
+  input:focus, textarea:focus{outline:none; border-color:var(--terracota);}
+  textarea{resize:vertical; min-height:130px;}
+  form .btn{align-self:flex-start;}
+
+  footer{background:var(--marron); color:#e8dcd2; padding:50px 0 30px; text-align:center;}
+  footer .logo{color:var(--gold); justify-content:center; display:inline-block;}
+  footer p{margin-top:14px; font-size:.8rem; opacity:.7;}
+  .footer-social{display:flex; justify-content:center; gap:16px; margin:20px 0;}
+  .footer-social a{width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center;}
+  .footer-social a svg{width:16px; height:16px; stroke:#e8dcd2;}
+  .footer-social a:hover{background:var(--gold); border-color:var(--gold);}
+  .footer-social a:hover svg{stroke:var(--marron);}
+
+  @media (max-width:900px){
+    #nav ul{
+      position:fixed; top:0; right:-100%; height:100vh; width:70%; background:var(--white);
+      flex-direction:column; justify-content:center; align-items:center; gap:30px; transition:right .4s ease;
+      box-shadow:-10px 0 30px rgba(0,0,0,.1);
+    }
+    #nav ul.open{right:0;}
+    .nav-toggle{display:flex;}
+    .hero-grid, .sobre-grid, .contacto-grid{grid-template-columns:1fr;}
+    .sobre-grid{gap:40px;}
+    .servicios-grid{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);}
+    .metricas-grid{grid-template-columns:1fr; gap:40px;}
+    .form-row{grid-template-columns:1fr;}
+    .ig-mini-grid{grid-template-columns:repeat(3,1fr);}
+    section{padding:80px 0;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="container">
+    <a href="#hero" class="logo">LORA<span>Floral Art</span></a>
+    <ul id="navLinks">
+      <li><a href="#sobre">Sobre mí</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menú"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div class="reveal visible">
+        <div class="eyebrow">Diseño floral · Euskadi</div>
+        <h1 class="hero-title">Flores como<br><em>forma de expresión.</em></h1>
+        <p class="hero-sub">Diseño floral para bodas y eventos, con base en Euskadi y disponible en cualquier rincón del mundo.</p>
+        <div class="hero-ctas">
+          <a href="#contacto" class="btn btn-primary">Solicitar presupuesto</a>
+          <a href="https://www.instagram.com/lora.floralart/" target="_blank" rel="noopener" class="btn btn-outline">Ver Instagram</a>
+        </div>
+        <a class="press-badge" href="https://www.vogue.es/galerias/boda-bizkaia-caserio-olagorta-inspiracion-marina-conchas" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.8-6.3 3.8 1.7-7-5.4-4.7 7.1-.6z"/></svg>
+          <span>Flores vistas en <strong>Vogue España</strong> — boda de Saioa &amp; Chimi en Bizkaia</span>
+        </a>
+      </div>
+
+      <div class="ig-card reveal visible">
+        <div class="ig-top">
+          <div class="ig-ring">
+            <div class="ig-ring-inner">
+              <img src="assets/instagram/profile.jpg" alt="Foto de perfil de LORA Floral Art">
+            </div>
+          </div>
+          <div>
+            <div class="ig-name-row">
+              <h3>LORA Floral Art</h3>
+              <span class="verified" title="Cuenta verificada">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+            <a class="ig-handle" href="https://www.instagram.com/lora.floralart/" target="_blank" rel="noopener">@lora.floralart</a>
+            <div class="ig-meta">Florista · Euskadi 📍 Available worldwide</div>
+          </div>
+        </div>
+
+        <div class="ig-stats">
+          <div><strong class="counter" data-target="413">0</strong><span>Publicaciones</span></div>
+          <div><strong class="counter" data-target="2458">0</strong><span>Seguidores</span></div>
+          <div><strong class="counter" data-target="1769">0</strong><span>Seguidos</span></div>
+        </div>
+
+        <p class="ig-bio">LORE-DISEINUA | FLORAL ART
+Flores como forma de expresión.</p>
+
+        <div class="ig-actions">
+          <a href="#contacto" class="btn btn-primary btn-small">Contactar</a>
+          <a href="#servicios" class="btn btn-outline btn-small">Servicios</a>
+          <a href="https://www.instagram.com/lora.floralart/" target="_blank" rel="noopener" class="btn btn-outline btn-small">Seguir</a>
+        </div>
+
+        <div class="ig-mini-grid">
+          <img src="assets/instagram/post-1.jpg" alt="Post de Instagram de LORA Floral Art">
+          <img src="assets/instagram/post-2.jpg" alt="Post de Instagram de LORA Floral Art">
+          <img src="assets/instagram/post-4.jpg" alt="Post de Instagram de LORA Floral Art">
+          <img src="assets/instagram/post-5.jpg" alt="Post de Instagram de LORA Floral Art">
+          <img src="assets/instagram/post-7.jpg" alt="Post de Instagram de LORA Floral Art">
+          <img src="assets/instagram/post-11.jpg" alt="Post de Instagram de LORA Floral Art">
+        </div>
+      </div>
+    </div>
+
+    <div class="community-line reveal">
+      <h2>Diseño floral con raíces vascas, para bodas en cualquier parte del mundo.</h2>
+      <p><strong>+2.400 personas</strong> siguen su trabajo floral en Instagram — también presente en Facebook.</p>
+    </div>
+  </div>
+</section>
+
+<section id="sobre">
+  <div class="container">
+    <div class="sobre-grid">
+      <div class="sobre-text reveal">
+        <div class="eyebrow">Sobre mí</div>
+        <h2 class="section-title">Lore-diseinua,<br>diseño floral con acento propio</h2>
+        <div class="gold-underline"></div>
+        <p>LORA Floral Art es un estudio de diseño floral con base en Euskadi, especializado en bodas y eventos. Su nombre nace de "lore-diseinua" — diseño floral, en euskera — y su trabajo entiende las flores como una forma de expresión: cada composición se piensa para acompañar y realzar la historia de cada celebración.</p>
+        <p>Aunque su origen está en el País Vasco, el estudio trabaja allí donde la celebración lo requiera: "Available worldwide" es parte de su carta de presentación.</p>
+        <p>Su trabajo floral apareció en <a href="https://www.vogue.es/galerias/boda-bizkaia-caserio-olagorta-inspiracion-marina-conchas" target="_blank" rel="noopener" style="color:var(--terracota-dark); text-decoration:underline;">Vogue España</a>, en la boda de Saioa &amp; Chimi celebrada en un caserío de Bizkaia (noviembre 2024).</p>
+        <div class="badges">
+          <span class="badge">Diseño floral de bodas</span>
+          <span class="badge">Eventos y celebraciones</span>
+          <span class="badge">Instalaciones florales</span>
+          <span class="badge">Dirección artística floral</span>
+        </div>
+      </div>
+      <div class="sobre-photos reveal">
+        <img class="tall" src="assets/instagram/post-6.jpg" alt="Trabajo floral de LORA Floral Art">
+        <img class="short" src="assets/instagram/post-8.jpg" alt="Trabajo floral de LORA Floral Art">
+        <img class="short" src="assets/instagram/post-9.jpg" alt="Trabajo floral de LORA Floral Art">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="container">
+    <div class="eyebrow reveal">Servicios</div>
+    <h2 class="section-title reveal">En qué puedo ayudarte</h2>
+    <div class="gold-underline reveal"></div>
+    <div class="servicios-grid stagger">
+      <div class="servicio-card">
+        <div class="servicio-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 2.5 5 6 5c2 0 3.5 1.2 4 2.2C10.5 6.2 12 5 14 5c3.5 0 5.5 3.5 3.5 7.5C15 16.65 12 21 12 21z"/></svg>
+        </div>
+        <h3>Bodas</h3>
+        <p>Diseño floral integral para tu boda: ramos de novia, centros de mesa, decoración de ceremonia y ambientación completa del banquete.</p>
+        <a href="#contacto" class="btn btn-outline btn-small">Solicitar presupuesto</a>
+      </div>
+      <div class="servicio-card">
+        <div class="servicio-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V8a2 2 0 012-2h12a2 2 0 012 2v13M9 21V12h6v9M4 21h16"/><path d="M12 2l3 4H9l3-4z"/></svg>
+        </div>
+        <h3>Eventos y celebraciones</h3>
+        <p>Cumpleaños, aniversarios, inauguraciones y eventos corporativos con una puesta en escena floral pensada al detalle.</p>
+        <a href="#contacto" class="btn btn-outline btn-small">Solicitar presupuesto</a>
+      </div>
+    </div>
+    <p class="servicio-note reveal">Presupuesto a medida según cada proyecto — cuéntame tu evento y preparo una propuesta personalizada.</p>
+  </div>
+</section>
+
+<section id="galeria">
+  <div class="container">
+    <div class="eyebrow reveal">Galería</div>
+    <h2 class="section-title reveal">Bodas reales, flores reales</h2>
+    <div class="gold-underline reveal"></div>
+    <div class="gallery-grid stagger">
+      <div class="gallery-item"><img src="assets/instagram/post-1.jpg" alt="Kristine y Simon"><div class="gallery-overlay"><p><strong>Kristine &amp; Simon</strong>Wedding designer @casamenterasevents</p></div></div>
+      <div class="gallery-item"><img src="assets/instagram/post-2.jpg" alt="Kristine y Simon"><div class="gallery-overlay"><p><strong>Kristine &amp; Simon</strong>Photographer @ochoeme</p></div></div>
+      <div class="gallery-item"><img src="assets/instagram/post-3.jpg" alt="Kristine y Simon"><div class="gallery-overlay"><p><strong>Kristine &amp; Simon</strong>Lieu @la__mayou</p></div></div>
+      <div class="gallery-item"><img src="assets/instagram/post-4.jpg" alt="White wedding, Amaia y Benn"><div class="gallery-overlay"><p><strong>White wedding 🦢</strong>Amaia &amp; Benn</p></div></div>
+      <div class="gallery-item"><img src="assets/instagram/post-5.jpg" alt="Maitane y Ben"><div class="gallery-overlay"><p><strong>Maitane &amp; Ben</strong>Wedding designer @casamenterasevents</p></div></div>
+      <div class="gallery-item"><img src="assets/instagram/post-6.jpg" alt="Maitane y Ben, primavera"><div class="gallery-overlay"><p><strong>Spring is calling 🌼</strong>Maitane &amp; Ben</p></div></div>
+      <div class="gallery-item"><img src="assets/instagram/post-7.jpg" alt="Natalia y Callum"><div class="gallery-overlay"><p><strong>Natalia &amp; Callum</strong>Find your seat 🛎</p></div></div>
+      <div class="gallery-item"><img src="assets/instagram/post-8.jpg" alt="Maitane y Ben"><div class="gallery-overlay"><p><strong>Les lunettes de l'amour</strong>Maitane &amp; Ben</p></div></div>
+      <div class="gallery-item"><img src="assets/instagram/post-9.jpg" alt="Natalia y Callum, tulipanes"><div class="gallery-overlay"><p><strong>Tulips &amp; strawberries</strong>Natalia &amp; Callum</p></div></div>
+      <div class="gallery-item"><img src="assets/instagram/post-10.jpg" alt="Galentine's Day"><div class="gallery-overlay"><p><strong>Galentine's Day</strong>Bodas 2025</p></div></div>
+      <div class="gallery-item"><img src="assets/instagram/post-11.jpg" alt="La vie aux tons roses"><div class="gallery-overlay"><p><strong>La vie aux tons roses</strong>Photographer @diasdevinoyrosas</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="metricas">
+  <div class="container">
+    <div class="metricas-grid stagger">
+      <div class="metrica"><strong class="counter" data-target="2458">0</strong><span>Seguidores en Instagram</span></div>
+      <div class="metrica"><strong class="counter" data-target="413">0</strong><span>Publicaciones</span></div>
+      <div class="metrica"><strong><span class="counter" data-target="50">0</span><span class="plus-sign">+</span></strong><span>Bodas realizadas</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="container">
+    <div class="contacto-grid">
+      <div class="contacto-info reveal">
+        <div class="eyebrow">Contacto</div>
+        <h2 class="section-title">Hablemos de tu evento</h2>
+        <div class="gold-underline"></div>
+        <p>¿Tienes una boda o un evento en mente? Cuéntame los detalles y preparo una propuesta floral a medida.</p>
+
+        <div class="contact-item">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6l-10 7L2 6"/><path d="M2 6h20v12H2z"/></svg></div>
+          <a href="mailto:lora.floralart@gmail.com">lora.floralart@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <span>Euskadi 📍 Disponible en todo el mundo</span>
+        </div>
+
+        <div class="social-row">
+          <a href="https://www.instagram.com/lora.floralart/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+          </a>
+          <a href="https://www.facebook.com/lora.floralart/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <form id="contactForm">
+          <div class="form-row">
+            <input type="text" id="fname" placeholder="Tu nombre" required>
+            <input type="email" id="femail" placeholder="Tu email" required>
+          </div>
+          <input type="text" id="fevent" placeholder="Fecha y lugar del evento (opcional)">
+          <textarea id="fmsg" placeholder="Cuéntame sobre tu boda o evento..." required></textarea>
+          <button type="submit" class="btn btn-primary" id="formSubmitBtn">Enviar mensaje</button>
+          <p id="formStatus" style="font-size:.9rem; display:none;"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <a href="#hero" class="logo">LORA<span>Floral Art</span></a>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/lora.floralart/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+      </a>
+      <a href="https://www.facebook.com/lora.floralart/" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+    </div>
+    <p>© <span id="year"></span> LORA Floral Art. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Reveal + stagger on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal, .stagger').forEach(el => observer.observe(el));
+
+  // Counters
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const duration = 1600;
+    const start = performance.now();
+    function tick(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target).toLocaleString('es-ES');
+      if (progress < 1) requestAnimationFrame(tick);
+      else el.textContent = target.toLocaleString('es-ES');
+    }
+    requestAnimationFrame(tick);
+  }
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+  // Parallax on hero blobs
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    document.querySelector('.blob-1').style.transform = `translateY(${y * 0.15}px)`;
+    document.querySelector('.blob-2').style.transform = `translateY(${y * -0.1}px)`;
+  });
+
+  // Contact form -> Supabase
+  const sbClient = window.supabase.createClient(
+    'https://kcgsldfmtvklrfgbcrky.supabase.co',
+    'sb_publishable_g1zOzT-Gp0ibsQ6OWcpeIw_bZKlJiCb'
+  );
+
+  document.getElementById('contactForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const btn = document.getElementById('formSubmitBtn');
+    const status = document.getElementById('formStatus');
+    const name = document.getElementById('fname').value;
+    const email = document.getElementById('femail').value;
+    const eventInfo = document.getElementById('fevent').value;
+    const msg = document.getElementById('fmsg').value;
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    status.style.display = 'none';
+
+    const { error } = await sbClient.from('contact_messages').insert({
+      name: name,
+      email: email,
+      event_info: eventInfo || null,
+      message: msg,
+    });
+
+    if (error) {
+      status.textContent = 'Ha ocurrido un error al enviar el mensaje. Prueba de nuevo o escribe a lora.floralart@gmail.com.';
+      status.style.color = '#b3261e';
+      status.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Enviar mensaje';
+    } else {
+      status.textContent = '¡Gracias! Tu mensaje se ha enviado correctamente, te responderé lo antes posible.';
+      status.style.color = 'var(--terracota-dark)';
+      status.style.display = 'block';
+      btn.textContent = 'Mensaje enviado ✓';
+      document.getElementById('contactForm').reset();
+    }
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
